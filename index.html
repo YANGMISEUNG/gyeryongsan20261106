@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 계룡산 트레킹 여행 플래너</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Maps API (Note: Uses standard iframe fallback for privacy/compatibility) -->
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #f8fafc;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-20 md:pb-6">
+
+    <!-- Header & Navigation -->
+    <header class="bg-emerald-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid font-bold fa-mountain-sun text-2xl text-amber-300"></i>
+                <h1 class="font-bold text-lg md:text-xl tracking-tight">2026 계룡산 트레킹 Planner</h1>
+            </div>
+            <span class="text-xs bg-emerald-800 px-2.5 py-1 rounded-full text-emerald-100 font-medium">2026년 11월 6일 (금)</span>
+        </div>
+        
+        <!-- Tab Navigation Bar -->
+        <nav class="max-w-4xl mx-auto flex border-t border-emerald-600/50 bg-emerald-800/80 backdrop-blur-sm">
+            <button onclick="switchTab('itinerary')" id="tab-itinerary" class="tab-btn flex-1 py-3 text-center text-sm font-semibold border-b-2 border-amber-400 text-amber-300 transition-all flex justify-center items-center gap-1.5">
+                <i class="fa-solid fa-route"></i> 여행 계획
+            </button>
+            <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn flex-1 py-3 text-center text-sm font-semibold border-b-2 border-transparent text-emerald-200 hover:text-white transition-all flex justify-center items-center gap-1.5">
+                <i class="fa-solid fa-list-check"></i> 체크리스트
+            </button>
+            <button onclick="switchTab('budget')" id="tab-budget" class="tab-btn flex-1 py-3 text-center text-sm font-semibold border-b-2 border-transparent text-emerald-200 hover:text-white transition-all flex justify-center items-center gap-1.5">
+                <i class="fa-solid fa-wallet"></i> 예산 & 영수증
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-6">
+
+        <!-- ================= PAGE 1: ITINERARY (여행 계획) ================= -->
+        <section id="page-itinerary" class="tab-page space-y-6">
+
+            <!-- Profile Banner -->
+            <div class="bg-gradient-to-r from-emerald-800 to-teal-700 rounded-2xl p-4 text-white shadow-md flex justify-between items-center">
+                <div>
+                    <span class="bg-amber-400 text-emerald-950 font-bold text-xs px-2 py-0.5 rounded">맞춤 일정</span>
+                    <h2 class="text-lg font-bold mt-1">60대 중반 부부 계룡산 단풍 트레킹</h2>
+                    <p class="text-xs text-emerald-100 mt-0.5"><i class="fa-solid fa-person-walking"></i> 동학사 → 남매탑 → 삼불봉 → 금잔디고개 → 갑사 (약 8.2km)</p>
+                </div>
+                <div class="text-right hidden sm:block">
+                    <span class="text-2xl font-black text-amber-300">07:00</span>
+                    <p class="text-xs text-emerald-200">자택 출발 기준</p>
+                </div>
+            </div>
+
+            <!-- Quick App Links -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200">
+                <h3 class="text-xs font-bold uppercase text-slate-400 mb-3 tracking-wider"><i class="fa-solid fa-arrow-up-right-from-square text-emerald-600"></i> 필수 모바일 앱 바로가기</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <a href="https://m.youtube.com/results?search_query=%EA%B3%84%EB%A3%A1%EC%82%B0+%EB%8F%99%ED%95%99%EC%82%AC+%EA%B0%91%EC%82%A0+%EC%BD%94%EC%8A%A4" target="_blank" class="flex flex-col items-center justify-center p-2.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors">
+                        <i class="fa-brands fa-youtube text-2xl mb-1"></i>
+                        <span class="text-xs font-bold">YouTube</span>
+                        <span class="text-[10px] text-red-400">코스 영상 참고</span>
+                    </a>
+                    <a href="https://tmoneygo.com/" target="_blank" class="flex flex-col items-center justify-center p-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 transition-colors">
+                        <i class="fa-solid fa-bus text-2xl mb-1"></i>
+                        <span class="text-xs font-bold">티머니GO</span>
+                        <span class="text-[10px] text-blue-400">고속/시외버스</span>
+                    </a>
+                    <a href="https://www.bustago.or.kr/" target="_blank" class="flex flex-col items-center justify-center p-2.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition-colors">
+                        <i class="fa-solid fa-ticket text-2xl mb-1"></i>
+                        <span class="text-xs font-bold">버스타고</span>
+                        <span class="text-[10px] text-emerald-500">시외버스 예매</span>
+                    </a>
+                    <a href="https://www.letskorail.com/" target="_blank" class="flex flex-col items-center justify-center p-2.5 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 transition-colors">
+                        <i class="fa-solid fa-train text-2xl mb-1"></i>
+                        <span class="text-xs font-bold">코레일톡</span>
+                        <span class="text-[10px] text-purple-500">KTX 승차권 예매</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Detailed Timeline Section -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 space-y-6">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-clock text-emerald-600"></i> 당일 상세 타임라인
+                </h3>
+
+                <div class="relative border-l-2 border-emerald-200 ml-3 pl-6 space-y-8">
+
+                    <!-- Step 1 -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-emerald-600 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">1</span>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-bold text-emerald-600">07:00 - 09:10</span>
+                                <h4 class="font-bold text-base text-slate-900">자택 출발 ➔ 3호선 남부터미널역 이동 및 아침 식사</h4>
+                                <p class="text-xs text-slate-500 mt-1">지하철 3호선 이동 / 터미널 인근 연속영업 맛집에서 든든한 아침 식사</p>
+                            </div>
+                        </div>
+
+                        <!-- Morning Restaurants Recommendation -->
+                        <div class="mt-3 bg-slate-50 rounded-lg p-3 border border-slate-200">
+                            <span class="text-xs font-bold text-emerald-800 block mb-2"><i class="fa-solid fa-utensils text-amber-500"></i> 추천 아침 식사 장소 (구글 평점 4.0+ / 브레이크타임 없음)</span>
+                            <div class="space-y-2 text-xs">
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <div class="flex justify-between font-bold text-slate-800">
+                                        <span>1. 항아리식당 (한식/백반)</span>
+                                        <span class="text-amber-600"><i class="fa-solid fa-star"></i> 4.5</span>
+                                    </div>
+                                    <p class="text-slate-600 text-[11px] mt-0.5">운영: 06:00 - 21:00 (일요일 휴무 없음) | 서초구 효령로68길 66</p>
+                                    <p class="text-slate-500 text-[11px]">특징: 아침 일찍 오픈하며 찌개 및 한정식 백반으로 속 편하게 식사 가능</p>
+                                </div>
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <div class="flex justify-between font-bold text-slate-800">
+                                        <span>2. 제주은희네해장국 예술의전당점</span>
+                                        <span class="text-amber-600"><i class="fa-solid fa-star"></i> 4.3</span>
+                                    </div>
+                                    <p class="text-slate-600 text-[11px] mt-0.5">운영: 07:00 - 22:00 | 서울 서초구 효령로 14</p>
+                                    <p class="text-slate-500 text-[11px]">특징: 얼큰하고 푸짐한 해장국과 내장탕, 산행 전 든든한 영양 보충</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-emerald-600 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">2</span>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-bold text-emerald-600">09:50 - 11:50</span>
+                                <h4 class="font-bold text-base text-slate-900">서울남부터미널 출발 ➔ 동학사 도착</h4>
+                                <p class="text-xs text-slate-500 mt-1">시외버스 탑승 (약 2시간 소요) / 버스타고·티머니GO 사전 예매 필수</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-emerald-600 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">3</span>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-xs font-bold text-emerald-600">11:50 - 12:50</span>
+                                <h4 class="font-bold text-base text-slate-900">동학사 입구 점심 식사 & 트레킹 준비</h4>
+                                <p class="text-xs text-slate-500 mt-1">동학사 인근에서 산채비빔밥 또는 산채정식으로 점심 식사</p>
+                            </div>
+                        </div>
+
+                        <!-- Lunch Recommendations -->
+                        <div class="mt-3 bg-slate-50 rounded-lg p-3 border border-slate-200">
+                            <span class="text-xs font-bold text-emerald-800 block mb-2"><i class="fa-solid fa-utensils text-amber-500"></i> 동학사 점심 식사 추천 (구글 평점 4.0+ / 연속영업)</span>
+                            <div class="space-y-2 text-xs">
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <div class="flex justify-between font-bold text-slate-800">
+                                        <span>1. 계룡산산야초본가</span>
+                                        <span class="text-amber-600"><i class="fa-solid fa-star"></i> 4.5</span>
+                                    </div>
+                                    <p class="text-slate-600 text-[11px] mt-0.5">운영: 10:00 - 20:00 (노 브레이크) | 공주시 반포면 학봉리 695-2</p>
+                                    <p class="text-slate-500 text-[11px]">메뉴: 산채비빔밥, 정갈한 산채정식, 도토리묵 (소화가 잘되는 속 편한 음식)</p>
+                                </div>
+                                <div class="bg-white p-2.5 rounded border border-slate-200">
+                                    <div class="flex justify-between font-bold text-slate-800">
+                                        <span>2. 동학사 초가집</span>
+                                        <span class="text-amber-600"><i class="fa-solid fa-star"></i> 4.2</span>
+                                    </div>
+                                    <p class="text-slate-600 text-[11px] mt-0.5">운영: 10:00 - 21:00 (노 브레이크) | 공주시 반포면 구모동길 57</p>
+                                    <p class="text-slate-500 text-[11px]">메뉴: 우렁쌈밥정식, 해물파전, 더덕구이</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Trekking Course -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-amber-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold"><i class="fa-solid fa-person-hiking text-xs"></i></span>
+                        <div>
+                            <span class="text-xs font-bold text-amber-600">12:50 - 16:30 (약 3시간 40분 소요)</span>
+                            <h4 class="font-bold text-base text-slate-900">계룡산 단풍 트레킹 (동학사 ➔ 갑사 코스)</h4>
+                            
+                            <!-- Course details card -->
+                            <div class="mt-3 bg-amber-50 rounded-xl p-4 border border-amber-200 space-y-3">
+                                <div class="flex justify-between items-center text-xs font-bold text-amber-900 border-b border-amber-200 pb-2">
+                                    <span>총 거리: 약 8.2 km</span>
+                                    <span>예상 시간: 약 3시간 30분 ~ 4시간</span>
+                                </div>
+                                
+                                <div class="space-y-2 text-xs">
+                                    <div class="flex items-start gap-2">
+                                        <span class="bg-amber-200 text-amber-800 px-1.5 py-0.5 rounded font-bold text-[10px] shrink-0">구간 1</span>
+                                        <div>
+                                            <p class="font-semibold text-slate-800">동학사 ➔ 남매탑 (약 2.5km / 1시간 10분)</p>
+                                            <p class="text-slate-500 text-[11px]">돌계단 완경사 구간. 남매탑 부근에서 휴식 및 간식 섭취</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="bg-amber-200 text-amber-800 px-1.5 py-0.5 rounded font-bold text-[10px] shrink-0">구간 2</span>
+                                        <div>
+                                            <p class="font-semibold text-slate-800">남매탑 ➔ 삼불봉 고개 ➔ 금잔디 고개 (약 1.8km / 1시간)</p>
+                                            <p class="text-slate-500 text-[11px]">삼불봉 고개 경사 주의, 금잔디 고개는 완만하고 쉼터 조성됨</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="bg-amber-200 text-amber-800 px-1.5 py-0.5 rounded font-bold text-[10px] shrink-0">구간 3</span>
+                                        <div>
+                                            <p class="font-semibold text-slate-800">금잔디 고개 ➔ 갑사 (약 3.9km / 1시간 20분)</p>
+                                            <p class="text-slate-500 text-[11px]">갑사 계곡 하산길. 아름다운 단풍 터널 감상 구간</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Snack & Cafe Recommendations -->
+                                <div class="bg-white rounded-lg p-3 border border-amber-200 text-xs mt-2">
+                                    <span class="font-bold text-emerald-800 block mb-1"><i class="fa-solid fa-mug-hot text-amber-600"></i> 하산 후 간식 & 카페 추천 (갑사 / 동학사 인근)</span>
+                                    <div class="space-y-1.5">
+                                        <div class="flex justify-between">
+                                            <span class="font-semibold text-slate-800">1. 카페더크루즈 (동학사/학봉리)</span>
+                                            <span class="text-amber-600 font-bold"><i class="fa-solid fa-star text-[10px]"></i> 4.3</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500">대형 루프탑 통창 뷰 카페, 베이커리와 따뜻한 차</p>
+                                        <div class="flex justify-between pt-1 border-t border-slate-100">
+                                            <span class="font-semibold text-slate-800">2. 숲카페 (동학사 계곡)</span>
+                                            <span class="text-amber-600 font-bold"><i class="fa-solid fa-star text-[10px]"></i> 4.4</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500">계곡 뷰 야외 테라스, 수제 차와 디저트</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Bus Timetable from Gapsa -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-emerald-600 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">5</span>
+                        <div>
+                            <span class="text-xs font-bold text-emerald-600">16:30 - 17:30</span>
+                            <h4 class="font-bold text-base text-slate-900">갑사 ➔ 공주 종합버스터미널 이동</h4>
+                            
+                            <!-- Bus Timetable Card -->
+                            <div class="mt-3 bg-blue-50 rounded-xl p-4 border border-blue-200 space-y-3">
+                                <span class="font-bold text-blue-900 text-xs flex items-center gap-1.5">
+                                    <i class="fa-solid fa-bus text-blue-600"></i> 갑사 출발 ➔ 공주 터미널 행 (340번 / 342번 버스 시간표)
+                                </span>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-white p-2 rounded text-center border border-blue-100">
+                                        <span class="text-slate-500 text-[10px] block">추천 탑승 시간</span>
+                                        <span class="font-extrabold text-blue-700 text-sm">16:40 출발</span>
+                                    </div>
+                                    <div class="bg-white p-2 rounded text-center border border-blue-100">
+                                        <span class="text-slate-500 text-[10px] block">다음 막차 시간</span>
+                                        <span class="font-extrabold text-slate-700 text-sm">17:40 출발</span>
+                                    </div>
+                                </div>
+                                <p class="text-[11px] text-blue-800"><i class="fa-solid fa-circle-info"></i> 갑사 시내버스 정류장에서 탑승 (약 40~50분 소요)</p>
+
+                                <!-- KTX Alternative Section -->
+                                <div class="bg-purple-50 rounded-xl p-3 border border-purple-200 space-y-2 mt-3">
+                                    <span class="font-bold text-purple-900 text-xs flex items-center justify-between">
+                                        <span><i class="fa-solid fa-train text-purple-600"></i> [대안] 공주역 출발 ➔ 용산/서울역 KTX 주요 시간표</span>
+                                        <span class="text-[10px] font-normal text-purple-700">소요시간: 약 1시간 5분~1h 15분</span>
+                                    </span>
+                                    <div class="grid grid-cols-3 gap-2 text-[11px]">
+                                        <div class="bg-white p-2 rounded border border-purple-100 text-center">
+                                            <span class="text-purple-600 font-bold block">17:48 출발</span>
+                                            <span class="text-slate-600 text-[10px]">18:55 용산 도착</span>
+                                        </div>
+                                        <div class="bg-white p-2 rounded border border-purple-100 text-center">
+                                            <span class="text-purple-600 font-bold block">19:08 출발</span>
+                                            <span class="text-slate-600 text-[10px]">20:15 서울 도착</span>
+                                        </div>
+                                        <div class="bg-white p-2 rounded border border-purple-100 text-center">
+                                            <span class="text-purple-600 font-bold block">20:25 출발</span>
+                                            <span class="text-slate-600 text-[10px]">21:32 용산 도착</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-[10px] text-purple-700">* 갑사에서 공주역까지는 택시(약 25분) 이용 추천</p>
+                                </div>
+
+                                <!-- Taxi Call Info -->
+                                <div class="bg-amber-100 rounded-lg p-2.5 border border-amber-300 text-xs flex justify-between items-center mt-2">
+                                    <div>
+                                        <span class="font-bold text-amber-900 block"><i class="fa-solid fa-taxi text-amber-700"></i> 공주 지역 택시 호출 번호</span>
+                                        <span class="text-[11px] text-amber-800">버스가 늦거나 KTX 공주역 이동시 호출</span>
+                                    </div>
+                                    <a href="tel:041-855-5252" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                                        <i class="fa-solid fa-phone"></i> 041-855-5252
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 6: Return Journey -->
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-0 bg-emerald-600 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center font-bold">6</span>
+                        <div>
+                            <span class="text-xs font-bold text-emerald-600">18:10 - 20:00</span>
+                            <h4 class="font-bold text-base text-slate-900">공주터미널 출발 ➔ 서울 남부터미널 귀가</h4>
+                            <p class="text-xs text-slate-500 mt-1">18시 10분 승차권 미리 확인. 서울 도착 후 무사히 귀가하며 산행 마무리.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Google Maps & Amenities Section -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 space-y-4">
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-emerald-600"></i> 이동 동선 편의시설 (화장실 & 편의점)
+                    </h3>
+                    <button onclick="openAddFacilityModal()" class="text-xs bg-emerald-700 hover:bg-emerald-800 text-white px-3 py-1.5 rounded-lg font-medium transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-plus"></i> 화장실 추가
+                    </button>
+                </div>
+
+                <!-- Embedded Google Map Frame -->
+                <div class="w-full h-64 bg-slate-100 rounded-lg overflow-hidden relative border">
+                    <iframe 
+                        title="Gyeryongsan Google Map"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51458.1252194902!2d127.1812808!3d36.3575971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35652936a71e8a27%3A0x7d87b5a17686ffb!2sGyeryongsan!5e0!3m2!1sen!2skr!4v1700000000000!5m2!1sen!2skr" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+
+                <!-- Registered Facilities List -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase text-slate-500 tracking-wider">등록된 편의시설 목록 (화장실 / CU / GS25 / 이마트24)</h4>
+                    <div id="facilities-list" class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                        <!-- Populated dynamically via JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= PAGE 2: CHECKLIST (체크리스트) ================= -->
+        <section id="page-checklist" class="tab-page hidden space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 space-y-4">
+                <div class="flex justify-between items-center border-b pb-3">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-emerald-600"></i> 트레킹 준비물 체크리스트
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">60대 부부 안전 산행 필수 항목</p>
+                    </div>
+                    <span id="checklist-progress" class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">0 / 0 완료</span>
+                </div>
+
+                <!-- Add New Item Form -->
+                <form onsubmit="addChecklistItem(event)" class="flex gap-2">
+                    <input type="text" id="new-checklist-input" placeholder="새 준비물 항목 입력..." required class="flex-1 px-3 py-2 text-xs border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <button type="submit" class="bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 text-xs font-bold rounded-lg transition-colors">추가</button>
+                </form>
+
+                <!-- Checklist Items List -->
+                <div id="checklist-items" class="space-y-2">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 3: BUDGET & RECEIPTS (예산 및 영수증) ================= -->
+        <section id="page-budget" class="tab-page hidden space-y-6">
+            
+            <!-- Budget Overview Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 border-b pb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-emerald-600"></i> 여행 예산 및 지출 관리
+                </h3>
+
+                <div class="grid grid-cols-3 gap-3 text-center">
+                    <div class="bg-slate-50 p-3 rounded-lg border">
+                        <span class="text-[11px] text-slate-500 block font-medium">총 예상 예산</span>
+                        <span id="total-budget-display" class="text-sm md:text-base font-extrabold text-slate-800">200,000 원</span>
+                    </div>
+                    <div class="bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+                        <span class="text-[11px] text-emerald-700 block font-medium">현재 사용 금액</span>
+                        <span id="total-spent-display" class="text-sm md:text-base font-extrabold text-emerald-700">0 원</span>
+                    </div>
+                    <div class="bg-amber-50 p-3 rounded-lg border border-amber-100">
+                        <span class="text-[11px] text-amber-800 block font-medium">잔액</span>
+                        <span id="total-remaining-display" class="text-sm md:text-base font-extrabold text-amber-800">200,000 원</span>
+                    </div>
+                </div>
+
+                <!-- Add Expense Entry Form -->
+                <form onsubmit="addExpense(event)" class="bg-slate-50 p-3 rounded-lg border space-y-2">
+                    <span class="text-xs font-bold text-slate-700 block">새 지출 내역 추가</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                        <input type="text" id="exp-title" placeholder="항목명 (예: 시외버스 표)" required class="p-2 border rounded">
+                        <input type="number" id="exp-amount" placeholder="금액 (원)" required class="p-2 border rounded">
+                        <select id="exp-category" class="p-2 border rounded">
+                            <option value="교통">교통비</option>
+                            <option value="식사">식사/간식</option>
+                            <option value="기타">기타 비용</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold py-2 rounded-lg transition-colors">지출 등록</button>
+                </form>
+
+                <!-- Expense History Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left text-slate-600">
+                        <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[10px]">
+                            <tr>
+                                <th class="p-2.5">분류</th>
+                                <th class="p-2.5">항목</th>
+                                <th class="p-2.5 text-right">금액</th>
+                                <th class="p-2.5 text-center">삭제</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expense-list-body" class="divide-y divide-slate-100">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Receipt & Photo Storage Section (Requirement 8) -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 md:p-6 space-y-4">
+                <div class="flex justify-between items-center border-b pb-3">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-camera text-emerald-600"></i> 영수증 및 사진 보관함
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">트레킹 중 찍은 사진과 영수증을 로컬에 저장하세요.</p>
+                    </div>
+                    <label class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-upload"></i> 사진 업로드
+                        <input type="file" id="image-input" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                    </label>
+                </div>
+
+                <!-- Gallery Container -->
+                <div id="photo-gallery" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <!-- Images will be rendered here -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Modal for Adding New Public Restroom/Facility -->
+    <div id="add-facility-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-5 space-y-4 shadow-xl">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h4 class="font-bold text-slate-800 text-sm">신규 화장실/편의시설 추가</h4>
+                <button onclick="closeAddFacilityModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="saveNewFacility(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-600 mb-1 font-medium">시설 이름</label>
+                    <input type="text" id="fac-name" placeholder="예: 금잔디고개 간이화장실" required class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-slate-600 mb-1 font-medium">구분</label>
+                    <select id="fac-type" class="w-full p-2 border rounded-lg">
+                        <option value="공공화장실">공공화장실</option>
+                        <option value="CU 편의점">CU 편의점</option>
+                        <option value="GS25 편의점">GS25 편의점</option>
+                        <option value="이마트24">이마트24</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-600 mb-1 font-medium">위치 설명</label>
+                    <input type="text" id="fac-location" placeholder="예: 삼불봉 하산길 500m 지점" required class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeAddFacilityModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 py-2 rounded-lg text-slate-600 font-bold">취소</button>
+                    <button type="submit" class="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white py-2 rounded-lg font-bold">저장하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Default Facilities Data
+        let facilities = [
+            { id: 1, name: "서울남부터미널 내부 화장실", type: "공공화장실", location: "터미널 1층 및 지하 승강장" },
+            { id: 2, name: "CU 서울남부터미널점", type: "CU 편의점", location: "서울남부터미널 승강장 부근" },
+            { id: 3, name: "동학사 매표소 공중화장실", type: "공공화장실", location: "동학사 입구 주차장 옆" },
+            { id: 4, name: "GS25 계룡산동학사점", type: "GS25 편의점", location: "동학사 식당가 입구" },
+            { id: 5, name: "남매탑 산악 화장실", type: "공공화장실", location: "남매탑 쉼터 인근" },
+            { id: 6, name: "갑사 입구 공공화장실", type: "공공화장실", location: "갑사 버스정류장 및 관광안내소 옆" },
+            { id: 7, name: "이마트24 공주갑사점", type: "이마트24", location: "갑사 상가단지 내" }
+        ];
+
+        // Default Checklist Data
+        let checklist = [
+            { id: 1, text: "등산화 및 등산 스틱 (무릎 보호용)", done: true },
+            { id: 2, text: "방한 자켓 및 바람막이 (11월 초 쌀쌀한 날씨)", done: true },
+            { id: 3, text: "따뜻한 물 및 이온음료", done: false },
+            { id: 4, text: "간식 (초콜릿, 견과류, 바나나)", done: false },
+            { id: 5, text: "비상약 (대안고, 압박붕대, 개인약)", done: false },
+            { id: 6, text: "서울-동학사 / 공주-서울 버스 예매표 확인", done: true },
+            { id: 7, text: "보조배터리 및 스마트폰 충전기", done: false }
+        ];
+
+        // Default Expenses Data
+        let expenses = [
+            { id: 1, category: "교통", title: "서울남부 ➔ 동학사 시외버스 (2인)", amount: 24000 },
+            { id: 2, category: "교통", title: "공주 ➔ 서울남부 시외버스 (2인)", amount: 24000 },
+            { id: 3, category: "식사", title: "서울남부터미널 아침 식사 예상", amount: 20000 },
+            { id: 4, category: "식사", title: "동학사 입구 점심 식사 예상", amount: 35000 }
+        ];
+
+        // Saved Photos (Base64)
+        let photos = [];
+
+        // Application Initialization
+        window.onload = function() {
+            loadLocalStorage();
+            renderFacilities();
+            renderChecklist();
+            renderExpenses();
+            renderPhotos();
+        };
+
+        // Tab Switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-page').forEach(page => page.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-amber-400', 'text-amber-300');
+                btn.classList.add('border-transparent', 'text-emerald-200');
+            });
+
+            document.getElementById(`page-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            activeBtn.classList.remove('border-transparent', 'text-emerald-200');
+            activeBtn.classList.add('border-amber-400', 'text-amber-300');
+        }
+
+        // LocalStorage Loader
+        function loadLocalStorage() {
+            if(localStorage.getItem('gyeryong_facilities')) {
+                facilities = JSON.parse(localStorage.getItem('gyeryong_facilities'));
+            }
+            if(localStorage.getItem('gyeryong_checklist')) {
+                checklist = JSON.parse(localStorage.getItem('gyeryong_checklist'));
+            }
+            if(localStorage.getItem('gyeryong_expenses')) {
+                expenses = JSON.parse(localStorage.getItem('gyeryong_expenses'));
+            }
+            if(localStorage.getItem('gyeryong_photos')) {
+                photos = JSON.parse(localStorage.getItem('gyeryong_photos'));
+            }
+        }
+
+        // Render Facilities
+        function renderFacilities() {
+            const listEl = document.getElementById('facilities-list');
+            listEl.innerHTML = facilities.map(f => `
+                <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex justify-between items-center">
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${f.type.includes('화장실') ? 'bg-blue-100 text-blue-800' : 'bg-emerald-100 text-emerald-800'}">${f.type}</span>
+                            <span class="font-bold text-slate-800">${f.name}</span>
+                        </div>
+                        <p class="text-slate-500 text-[11px] mt-1"><i class="fa-solid fa-location-dot text-slate-400"></i> ${f.location}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Facility Modal Handlers
+        function openAddFacilityModal() {
+            document.getElementById('add-facility-modal').classList.remove('hidden');
+        }
+        function closeAddFacilityModal() {
+            document.getElementById('add-facility-modal').classList.add('hidden');
+        }
+        function saveNewFacility(e) {
+            e.preventDefault();
+            const name = document.getElementById('fac-name').value;
+            const type = document.getElementById('fac-type').value;
+            const location = document.getElementById('fac-location').value;
+
+            facilities.push({ id: Date.now(), name, type, location });
+            localStorage.setItem('gyeryong_facilities', JSON.stringify(facilities));
+            renderFacilities();
+            closeAddFacilityModal();
+            e.target.reset();
+        }
+
+        // Render Checklist
+        function renderChecklist() {
+            const container = document.getElementById('checklist-items');
+            const completedCount = checklist.filter(c => c.done).length;
+            document.getElementById('checklist-progress').innerText = `${completedCount} / ${checklist.length} 완료`;
+
+            container.innerHTML = checklist.map(item => `
+                <div onclick="toggleChecklist(${item.id})" class="flex items-center justify-between p-3 rounded-lg border ${item.done ? 'bg-emerald-50/50 border-emerald-200 text-slate-400' : 'bg-white border-slate-200 text-slate-800'} cursor-pointer hover:border-emerald-400 transition-all">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-regular ${item.done ? 'fa-square-check text-emerald-600 text-lg' : 'fa-square text-slate-300 text-lg'}"></i>
+                        <span class="text-xs font-semibold ${item.done ? 'line-through' : ''}">${item.text}</span>
+                    </div>
+                    <button onclick="event.stopPropagation(); deleteChecklist(${item.id})" class="text-slate-300 hover:text-red-500 text-xs px-2">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleChecklist(id) {
+            checklist = checklist.map(c => c.id === id ? { ...c, done: !c.done } : c);
+            localStorage.setItem('gyeryong_checklist', JSON.stringify(checklist));
+            renderChecklist();
+        }
+
+        function addChecklistItem(e) {
+            e.preventDefault();
+            const input = document.getElementById('new-checklist-input');
+            if (!input.value.trim()) return;
+            checklist.push({ id: Date.now(), text: input.value.trim(), done: false });
+            localStorage.setItem('gyeryong_checklist', JSON.stringify(checklist));
+            input.value = '';
+            renderChecklist();
+        }
+
+        function deleteChecklist(id) {
+            checklist = checklist.filter(c => c.id !== id);
+            localStorage.setItem('gyeryong_checklist', JSON.stringify(checklist));
+            renderChecklist();
+        }
+
+        // Render Expenses
+        function renderExpenses() {
+            const tbody = document.getElementById('expense-list-body');
+            const totalBudget = 200000;
+            const totalSpent = expenses.reduce((sum, item) => sum + item.amount, 0);
+            const remaining = totalBudget - totalSpent;
+
+            document.getElementById('total-budget-display').innerText = `${totalBudget.toLocaleString()} 원`;
+            document.getElementById('total-spent-display').innerText = `${totalSpent.toLocaleString()} 원`;
+            document.getElementById('total-remaining-display').innerText = `${remaining.toLocaleString()} 원`;
+
+            tbody.innerHTML = expenses.map(item => `
+                <tr class="hover:bg-slate-50">
+                    <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.category === '교통' ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800'}">${item.category}</span></td>
+                    <td class="p-2.5 font-medium text-slate-800">${item.title}</td>
+                    <td class="p-2.5 text-right font-bold text-slate-900">${item.amount.toLocaleString()} 원</td>
+                    <td class="p-2.5 text-center">
+                        <button onclick="deleteExpense(${item.id})" class="text-slate-300 hover:text-red-500"><i class="fa-solid fa-xmark"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function addExpense(e) {
+            e.preventDefault();
+            const title = document.getElementById('exp-title').value;
+            const amount = parseInt(document.getElementById('exp-amount').value);
+            const category = document.getElementById('exp-category').value;
+
+            if (!title || isNaN(amount)) return;
+
+            expenses.push({ id: Date.now(), title, amount, category });
+            localStorage.setItem('gyeryong_expenses', JSON.stringify(expenses));
+            renderExpenses();
+            e.target.reset();
+        }
+
+        function deleteExpense(id) {
+            expenses = expenses.filter(e => e.id !== id);
+            localStorage.setItem('gyeryong_expenses', JSON.stringify(expenses));
+            renderExpenses();
+        }
+
+        // Photos & Receipts Storage Handling
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                photos.push({ id: Date.now(), src: event.target.result });
+                try {
+                    localStorage.setItem('gyeryong_photos', JSON.stringify(photos));
+                } catch(err) {
+                    alert('저장 공간이 부족하여 이미지를 보관할 수 없습니다.');
+                }
+                renderPhotos();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function renderPhotos() {
+            const gallery = document.getElementById('photo-gallery');
+            if (photos.length === 0) {
+                gallery.innerHTML = `<div class="col-span-full py-8 text-center text-xs text-slate-400 bg-slate-50 rounded-lg border border-dashed">등록된 영수증 및 사진이 없습니다.</div>`;
+                return;
+            }
+
+            gallery.innerHTML = photos.map(p => `
+                <div class="relative group aspect-square rounded-lg overflow-hidden border bg-black/5">
+                    <img src="${p.src}" class="w-full h-full object-cover">
+                    <button onclick="deletePhoto(${p.id})" class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs shadow hover:bg-red-700">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function deletePhoto(id) {
+            photos = photos.filter(p => p.id !== id);
+            localStorage.setItem('gyeryong_photos', JSON.stringify(photos));
+            renderPhotos();
+        }
+    </script>
+</body>
+</html>
